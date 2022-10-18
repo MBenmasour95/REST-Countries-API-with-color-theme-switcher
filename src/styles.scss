@@ -1,0 +1,520 @@
+/* === FONT === */
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+
+/* === VARIABLES === */
+:root {
+  --primary-clr: hsl(207, 26%, 17%);
+  --secondary-clr: hsl(209, 23%, 22%);
+  --heading-clr: hsl(0, 0%, 100%);
+  --text-clr: hsl(0, 0%, 98%);
+  --shadow-clr: hsla(200, 15%, 8%, 0.1);
+  --gray-clr: hsl(0, 0%, 52%);
+
+  --border-radius: 0.4rem;
+}
+
+/* === SWITCH THEME=== */
+body.dark-theme {
+  --primary-clr: hsl(207, 26%, 17%);
+  --secondary-clr: hsl(209, 23%, 22%);
+  --text-clr: hsl(0, 0%, 98%);
+  --heading-clr: hsl(0, 0%, 100%);
+  --shadow-clr: hsla(200, 15%, 8%, 0.1);
+}
+
+body.light-theme {
+  --primary-clr: hsl(0, 0%, 98%);
+  --secondary-clr: hsl(0, 0%, 100%);
+  --heading-clr: hsla(200, 15%, 8%);
+  --text-clr: hsl(207, 26%, 17%);
+  --shadow-clr: hsla(209, 23%, 22%, 0.1);
+}
+
+/* === GLOBAL STYLES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--primary-clr);
+  color: var(--text-clr);
+  min-height: 100vh;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.6rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 580px) {
+    font-size: 1.4rem;
+  }
+}
+
+h3 {
+  color: var(--heading-clr);
+  font-weight: 800;
+
+  @media (max-width: 580px) {
+    font-size: 1.4rem;
+  }
+}
+
+input {
+  background: transparent;
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+a {
+  color: var(--text-clr);
+  text-transform: capitalize;
+  text-decoration: none;
+}
+
+p {
+  font-weight: 600;
+
+  span {
+    color: var(--gray-clr);
+    margin-left: 0.5rem;
+    font-weight: 300;
+  }
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+svg {
+  font-size: 2.4rem;
+}
+
+/* === MIXIN === */
+@mixin flexbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* === COMPONENTS STYLES === */
+
+/*
+  Navbar
+*/
+.navbar {
+  @include flexbox;
+  background-color: var(--secondary-clr);
+  height: 7rem;
+  padding: 0 10rem;
+  box-shadow: 0 0.1rem 0.4rem var(--shadow-clr);
+
+  .toggle-theme {
+    @include flexbox;
+    gap: 0.5rem;
+    cursor: pointer;
+
+    svg {
+      font-size: 1.8rem;
+    }
+
+    span {
+      text-transform: capitalize;
+      font-weight: 600;
+      user-select: none;
+    }
+  }
+
+  @media (max-width: 1130px) {
+    padding: 2rem 4rem;
+  }
+
+  @media (max-width: 580px) {
+    padding: 0 1rem;
+
+    .toggle-theme {
+      gap: 1rem;
+
+      svg {
+        font-size: 1.6rem;
+        margin-bottom: 0.2rem;
+      }
+    }
+  }
+}
+
+/*
+  Wrapper
+*/
+.wrapper {
+  @include flexbox;
+  gap: 4rem;
+  flex-wrap: wrap;
+  padding: 3rem 10rem;
+
+  @media (max-width: 1130px) {
+    padding: 2rem 4rem;
+  }
+
+  @media (max-width: 580px) {
+    padding: 2rem 1rem;
+  }
+}
+
+/*
+  Search Input
+*/
+.form-control {
+  @include flexbox;
+  width: 40rem;
+  height: 5rem;
+  background-color: var(--secondary-clr);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 1rem var(--shadow-clr);
+  overflow: hidden;
+
+  .search-icon {
+    position: relative;
+    width: 5rem;
+    height: 100%;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  input {
+    flex: 1;
+    height: 100%;
+    padding: 1rem;
+
+    &::placeholder {
+      color: inherit;
+    }
+  }
+}
+
+/*
+  Filter
+*/
+.filter {
+  position: relative;
+  width: 20rem;
+  height: 5rem;
+  background-color: var(--secondary-clr);
+  user-select: none;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 1rem var(--shadow-clr);
+  cursor: pointer;
+
+  span {
+    @include flexbox;
+    height: 100%;
+    padding: 1rem 2rem;
+    pointer-events: none;
+  }
+
+  .list {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    height: 0;
+    list-style-type: none;
+    background-color: inherit;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 1rem var(--shadow-clr);
+    transition: all 300ms ease;
+    z-index: 1000;
+
+    &.show {
+      height: 25rem;
+    }
+
+    li {
+      padding: 1rem 2rem;
+      width: 100%;
+      cursor: pointer;
+      transition: all 300ms ease;
+
+      &.active,
+      &:hover {
+        background-color: var(--text-clr);
+        color: var(--primary-clr);
+      }
+    }
+  }
+}
+
+/*
+  Button
+*/
+.back-btn {
+  @include flexbox;
+  width: 12rem;
+  height: 4rem;
+  background-color: var(--secondary-clr);
+  color: var(--text-clr);
+  padding: 0 2.5rem;
+  font-size: inherit;
+  text-transform: capitalize;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 1rem var(--shadow-clr);
+  transition: all 300ms linear;
+
+  &:hover {
+    padding-left: 1rem;
+  }
+}
+
+/*
+  Loading
+*/
+.spinner {
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    from {
+      transform: translate(-50%, -50%) rotate(0);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  &.big {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10rem;
+  }
+  &.small {
+    display: block;
+    font-size: 4rem;
+    margin: 0 auto;
+  }
+}
+
+/*
+  Error
+*/
+.error {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+
+  @media (max-width: 580px) {
+    width: 90%;
+    font-size: 2rem;
+  }
+}
+
+/*
+  Card List
+*/
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+  grid-auto-rows: auto;
+  gap: 2rem 4rem;
+  padding: 4rem 10rem;
+
+  @media (max-width: 580px) {
+    padding: 2rem 4rem;
+  }
+}
+
+/*
+  Card
+*/
+.card-link {
+  height: 35rem;
+  background-color: var(--secondary-clr);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 1rem var(--shadow-clr);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 300ms ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .flag-box {
+    height: 50%;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .card-details {
+    padding: 1.5rem 2.4rem;
+
+    h4 {
+      margin-bottom: 2rem;
+    }
+
+    p {
+      margin: 1rem 0;
+    }
+  }
+}
+
+/*
+  Single Country
+*/
+.details-container {
+  @include flexbox;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 2rem 10rem;
+
+  .img-box {
+    width: 50rem;
+    height: 30rem;
+  }
+
+  .details-content {
+    width: 56rem;
+
+    .row {
+      @extend .details-container;
+      padding: 0;
+      margin: 2rem 0 3rem;
+
+      > div {
+        p {
+          margin: 1rem 0;
+          text-transform: capitalize;
+
+          span {
+            text-transform: none;
+          }
+        }
+      }
+    }
+
+    .borders {
+      @extend .details-container;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0;
+      gap: 2rem;
+
+      p {
+        text-transform: capitalize;
+      }
+
+      div {
+        span {
+          background-color: var(--secondary-clr);
+          display: inline-block;
+          padding: 0.2rem 1.5rem;
+          margin: 1rem 0.5rem;
+          font-size: 1.4rem;
+          border-radius: var(--border-radius);
+          box-shadow: 0 0 1.5rem var(--shadow-clr);
+          cursor: pointer;
+          transition: all 300ms ease;
+
+          &:hover {
+            background-color: var(--text-clr);
+            color: var(--primary-clr);
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    .img-box {
+      width: 40rem;
+      height: 25rem;
+    }
+
+    .details-content {
+      width: 50rem;
+    }
+  }
+
+  @media (max-width: 1130px) {
+    padding: 2rem 4rem;
+
+    .details-content {
+      .row,
+      .borders {
+        padding: 0;
+      }
+    }
+  }
+
+  @media (max-width: 990px) {
+    gap: 4rem;
+
+    .img-box {
+      width: 100%;
+      height: 40rem;
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    .details-content {
+      width: 100%;
+
+      .row {
+        width: 80%;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .img-box {
+      height: 25rem;
+    }
+
+    .details-content {
+      .borders {
+        gap: 2rem;
+      }
+    }
+  }
+
+  @media (max-width: 580px) {
+    .img-box {
+      height: 20rem;
+    }
+
+    .details-content {
+      .row {
+        width: 100%;
+      }
+
+      .borders {
+        gap: 1rem;
+      }
+    }
+  }
+}
